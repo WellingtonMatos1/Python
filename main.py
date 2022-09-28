@@ -4,8 +4,9 @@ alunos = dict()
 def alunos_cadastro():
     while True:
         alunos.clear()
-        alunos['nome'] = str(input('Digite o nome: '))
         alunos['RA'] = input('Digite o RA: ')
+        verifica_cadastro()
+        alunos['nome'] = str(input('Digite o nome: '))
         alunos['Nota'] = float(input('Digite a nota: '))
         alunos['Disciplina'] = str(input('Digite a Disciplina: '))
         todos_alunos.append(alunos.copy())
@@ -16,13 +17,10 @@ def alunos_cadastro():
             print('Responda apenas com S para Sim ou N para não.')
         if contador == 'N':
             menu()
-        """elif contador == 'S':
-            verifica_cadastro()
-            alunos_cadastro()"""
 
 def verifica_cadastro():
     for aluno in todos_alunos:
-        if alunos['RA'] == alunos['RA']:
+        if aluno['RA'] == alunos['RA']:
             print('RA já cadastrado!!')
             alunos_cadastro()
 
@@ -33,7 +31,6 @@ def alunos_lista():
         print('Nome: ' + str(aluno['nome']) + ' RA: ' + str(aluno['RA']) + ' Nota: ' + str(aluno['Nota']) + ' Disciplina: ' + str(aluno['Disciplina']))
     i += 1
     menu()
-
 
 def encontra_aluno(RA):
     for aluno in todos_alunos:
@@ -93,16 +90,18 @@ def alunos_atualizar():
                 menu()
             else:
                 alunos_atualizar()
-
+    else:
+        print('RA não encontrado')
+        return alunos_atualizar()
 
 def menu():
-    print('### MENU ### \n',
+    print('   ### MENU ### \n',
           '# 1 - CADASTRAR # \n',
           '# 2 - REMOVER # \n',
           '# 3 - LISTAR # \n',
           '# 4 - ATUALIZAR # \n',
           '# 5 - FECHAR # \n',
-          '### ----- ###')
+          ' ### ----- ###')
     valor = int(input('Digite a operação desejada: '))
 
     if valor == 1:
