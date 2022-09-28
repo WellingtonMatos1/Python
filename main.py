@@ -1,8 +1,7 @@
+todos_alunos = list()
+alunos = dict()
+
 def alunos_cadastro():
-    global todos_alunos
-    todos_alunos = list()
-    global alunos
-    alunos = dict()
     while True:
         alunos.clear()
         alunos['nome'] = str(input('Digite o nome: '))
@@ -17,8 +16,15 @@ def alunos_cadastro():
             print('Responda apenas com S para Sim ou N para não.')
         if contador == 'N':
             menu()
+        """elif contador == 'S':
+            verifica_cadastro()
+            alunos_cadastro()"""
 
-
+def verifica_cadastro():
+    for aluno in todos_alunos:
+        if alunos['RA'] == alunos['RA']:
+            print('RA já cadastrado!!')
+            alunos_cadastro()
 
 def alunos_lista():
     i = 0
@@ -36,14 +42,14 @@ def encontra_aluno(RA):
     return 0
 
 def alunos_deletar():
-    RA = str(input('### DELETAR ### \n Digite o RA do aluno: '))
+    RA = input('### DELETAR ### \n Digite o RA do aluno: ')
     i = 0
     if encontra_aluno(RA):
         for aluno in todos_alunos:
             if RA == aluno['RA']:
                 del todos_alunos[i]
 
-        i += 1
+            i += 1
 
         while True:
             contador = str(input('Deseja excluir mais um aluno? [S/N]')).upper()[0]
@@ -69,7 +75,7 @@ def alunos_atualizar():
             if RA == aluno['RA']:
                 del todos_alunos[i]
 
-        i += 1
+            i += 1
 
         while True:
             print('Digite os novos valores')
