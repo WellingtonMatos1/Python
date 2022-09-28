@@ -4,19 +4,48 @@ alunos = dict()
 def alunos_cadastro():
     while True:
         alunos.clear()
-        alunos['RA'] = input('Digite o RA: ')
+        alunos['RA'] = leia_int('Digite o RA: ')
         verifica_cadastro()
-        alunos['nome'] = str(input('Digite o nome: '))
-        alunos['Nota'] = float(input('Digite a nota: '))
+        alunos['nome'] = str(input('Digite o Nome: '))
+        alunos['Nota'] = leia_float('Digite a Nota: ')
         alunos['Disciplina'] = str(input('Digite a Disciplina: '))
         todos_alunos.append(alunos.copy())
         while True:
-            contador = str(input('Deseja inserir mais um aluno? [S/N]')). upper()[0]
+            contador = str(input('Deseja inserir mais um aluno? [S/N]')).strip().upper()[0]
             if contador in 'SN':
                 break
             print('Responda apenas com S para Sim ou N para não.')
         if contador == 'N':
             menu()
+
+def leia_float(msg):
+    ok = False
+    valor = 0
+    while True:
+        alunos['Nota'] = str(input(msg))
+        if alunos['Nota'].isnumeric():
+            valor = float(alunos['Nota'])
+            ok = True
+        else:
+            print('Digite um valor numérico válido')
+        if ok:
+            break
+    return valor
+
+def leia_int(msg):
+    ok = False
+    valor = 0
+    while True:
+        alunos['RA'] = str(input(msg))
+        if alunos['RA'].isnumeric():
+            valor = float(alunos['RA'])
+            ok = True
+        else:
+            print('Digite um valor numérico válido')
+        if ok:
+            break
+    return valor
+
 
 def verifica_cadastro():
     for aluno in todos_alunos:
@@ -26,11 +55,18 @@ def verifica_cadastro():
 
 def alunos_lista():
     i = 0
-
+    print('### LISTAGEM ###')
     for aluno in todos_alunos:
         print('Nome: ' + str(aluno['nome']) + ' RA: ' + str(aluno['RA']) + ' Nota: ' + str(aluno['Nota']) + ' Disciplina: ' + str(aluno['Disciplina']))
     i += 1
-    menu()
+    contador = input('Quando quiser voltar para o Menu digite [S]: ').strip().upper()[0]
+    if contador == 'S':
+        menu()
+    else:
+        print('Responda apenas com S para sim')
+        alunos_lista()
+
+
 
 def encontra_aluno(RA):
     for aluno in todos_alunos:
@@ -49,7 +85,7 @@ def alunos_deletar():
             i += 1
 
         while True:
-            contador = str(input('Deseja excluir mais um aluno? [S/N]')).upper()[0]
+            contador = str(input('Deseja excluir mais um aluno? [S/N]')).strip().upper()[0]
             if contador in 'SN':
                 break
             print('Responda apenas com S para Sim ou N para não.')
@@ -76,13 +112,13 @@ def alunos_atualizar():
 
         while True:
             print('Digite os novos valores')
+            alunos['RA'] = leia_int('Digite o RA: ')
             alunos['nome'] = str(input('Digite o nome: '))
-            alunos['RA'] = input('Digite o RA: ')
-            alunos['Nota'] = float(input('Digite a nota: '))
+            alunos['Nota'] = leia_float('Digite a nota: ')
             alunos['Disciplina'] = str(input('Digite a Disciplina: '))
             todos_alunos.append(alunos.copy())
             while True:
-                contador = str(input('Deseja atualizar outro aluno? [S/N]')). upper()[0]
+                contador = str(input('Deseja atualizar outro aluno? [S/N]')).strip().upper()[0]
                 if contador in 'SN':
                     break
                 print('Responda apenas com S para Sim ou N para não.')
@@ -95,13 +131,15 @@ def alunos_atualizar():
         return alunos_atualizar()
 
 def menu():
-    print('   ### MENU ### \n',
-          '# 1 - CADASTRAR # \n',
-          '# 2 - REMOVER # \n',
-          '# 3 - LISTAR # \n',
-          '# 4 - ATUALIZAR # \n',
-          '# 5 - FECHAR # \n',
-          ' ### ----- ###')
+    print(' ╔═══════════════════╗\n',
+          '║   ### MENU ###    ║\n',
+          '║ # 1 - CADASTRAR # ║ \n',
+          '║ # 2 - REMOVER #   ║ \n',
+          '║ # 3 - LISTAR #    ║ \n',
+          '║ # 4 - ATUALIZAR # ║ \n',
+          '║ # 5 - FECHAR #    ║\n',
+          '║   ### ----- ###   ║\n',
+          '╚═══════════════════╝')
     valor = int(input('Digite a operação desejada: '))
 
     if valor == 1:
@@ -109,7 +147,7 @@ def menu():
     elif valor == 2:
         return print(alunos_deletar())
     elif valor == 3:
-        return print('### LISTAGEM ###', alunos_lista())
+        return print(alunos_lista())
     elif valor == 4:
         return print('### ATUALIZAR ###', alunos_atualizar())
     elif valor == 5:
